@@ -1,0 +1,50 @@
+<div class="tdo-head-wrap">
+
+    <div  class="row mx-0 align-items-center">
+        <div class="col-md-6 pl-0">
+            <img src="assets/images/TDOxLogo.svg" alt="TDOxLogo" class="img-fluid" />
+        </div>
+        <div class="col-md-6 pr-0">
+            <div class="text-right">
+                <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+                    <img src="assets/images/DottedToggle.svg" alt="Toggle"
+                        class="img-fluid float-right" />
+                </button>
+                <mat-menu #beforeMenu="matMenu" xPosition="before" class="rt-toggle-menu">
+                    <button (click)="openDialog()" mat-menu-item>
+                        <mat-icon>list</mat-icon>
+                        <span>Letter list</span>
+                    </button>
+                    <button (click)="openOptionsDialog()" mat-menu-item>
+                        <mat-icon>send</mat-icon>
+                        <span>Send Options</span>
+                    </button>
+                </mat-menu>
+            </div>
+
+        </div>
+    </div>
+
+
+    <nav>
+        <div class="nav nav-tabs">
+            <mat-tab-group (selectedTabChange)="onTabChanged($event)" [selectedIndex]="router.url == '/' ? 0 : 1">
+                <mat-tab >
+                    <ng-template mat-tab-label>
+                        <img [src]="router.url == '/' ? '../../../assets/images/NewLetterActive.svg' : '../../../assets/images/NewLetter.svg'" alt="" height="20px" class="mr-2">
+                        <span>New Letter</span>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <img [src]="router.url == '/template' ? '../../../assets/images/template.svg' : '../../../assets/images/templateActive.svg'" alt="" [ngStyle]="router.url == '/template' ? {height:'15px', 'margin-right':'10px'} :  {height:'20px'}">
+                        <span>Template</span>
+                      </ng-template>
+                </mat-tab>
+              </mat-tab-group>
+            <!-- <a [ngClass]="{'active-link': router.url === '/'}" (click)="goto('/')" class="nav-item nav-link  nav-bg1" > New Letter</a>
+
+            <a [ngClass]="{'active-link': router.url === '/template'}" (click)="goto('/template')" class="nav-item nav-link nav-bg3 ml-3" >Template </a> -->
+        </div>
+    </nav>
+</div>

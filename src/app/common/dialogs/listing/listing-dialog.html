@@ -1,0 +1,230 @@
+<div class="other-popup">
+    <div *ngIf="dummyData" >
+        <div class="popup-header">
+            <p class="mb-0 text-capitalize float-left text-white">Pick Volume</p>
+            <a (click)="closeTop()" class="close-btn curpont float-right">X</a>
+        </div>
+        <div class="popup-body">
+            <div class="list-container">
+                <div class="row mx-0 border-btm1 py-2 font-weight-bold">
+                    <div class="col-md-4 pl-2">
+                        Volume Name
+                    </div>
+                    <div class="col-md-4">
+                        Date
+                    </div>
+                    <div class="col-md-4">
+                       Taken By
+                    </div>
+                </div>
+                <dx-list 
+                    (onSelectionChanged)="onSelectionChanged($event)" #list [dataSource]="dummyData" [height]="150"
+                    [pullRefreshEnabled]="false" selectionMode="single" [searchEnabled]="false"  searchMode="contains">
+                    <div *dxTemplate="let data of 'item'">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{data.VolumeName}} 
+                            </div>
+                            <div class="col-md-4">
+                                {{data.CBCTDate}}
+                            </div>
+                            <div class="col-md-4">
+                                {{data.TakenBy}}
+                            </div>
+                        </div>
+                    </div>
+                </dx-list>
+            </div>
+          
+            <p class="mt-2">By clicking on cancel button test mode will reset* </p>
+            <div class="text-center my-3">
+                <button mat-button [disabled]="!radioSelected" (click)="confirm()" class="btn btn-primary mr-3 w-25 ">Ok</button>
+                <button mat-button (click)="closeTop()" class="btn btn-cancel w-25">Cancel</button>
+            </div>
+        </div>
+    
+    </div>
+</div>
+<div class="other-popup " *ngIf="NotesList">
+    <div class="popup-header">
+        <p class="mb-0 float-left text-white">Pick prescription</p>
+        <a (click)="closeTop()" class="close-btn curpont float-right">X</a>
+    </div>
+   
+    <div class="row m-0">
+        <div class="col-6">
+            <div class="NotesCategory">
+                <dx-list class="pick-list left-height" (onSelectionChanged)="onSelectionChanged2($event)" #list [dataSource]="NotesList" 
+                    [pullRefreshEnabled]="false" selectionMode="single" [searchEnabled]="false" searchMode="contains">
+                    <div *dxTemplate="let data of 'item'">
+                        <div>{{data.NotesCategory}} </div>
+                    </div>
+                </dx-list>
+             
+            </div>
+            
+        </div>
+        <div class="col-6 pl-0">
+            <div class="note-wrap">{{NoteData}}</div>
+        </div>
+    </div>
+    
+    
+    <p class="px-3 mt-2">By clicking on cancel button test mode will reset* </p>
+    <div class="text-center my-3">
+        <button mat-button [disabled]="!radioSelected" (click)="confirm()" class="btn btn-primary mr-3 w-25 ">Ok</button>
+        <button mat-button (click)="closeTop()" class="btn btn-cancel w-25">Cancel</button>
+    </div>
+    
+</div>
+
+<div class="other-popup " *ngIf="secInsurancList">
+    <div class="popup-header">
+        <p class="mb-0 float-left text-white">Secondary Insurance</p>
+        <a (click)="closeTop()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div class="row m-0">
+        
+        <div class="col-12">
+            <h5 class="font-weight-normal mt-3">Select secondary insurance for the patient :</h5>
+            <dx-list class="sec-wrap border-tdo" (onSelectionChanged)="onSelectionChanged($event)" #list [dataSource]="secInsurancList"
+                [height]="150" [pullRefreshEnabled]="false" selectionMode="single" [searchEnabled]="false"
+                searchMode="contains">
+                <div *dxTemplate="let data of 'item'">
+                    <div class="row">
+                        <div class="col-6">
+                            {{data.InsuranceName}}
+                        </div>
+                       
+                    </div>
+                </div>
+            </dx-list>
+
+        </div>
+
+    </div>
+
+    <p class="px-3 mt-2">By clicking on cancel button test mode will reset* </p>
+    <div class="text-center my-3">
+        <button mat-button [disabled]="!radioSelected" (click)="confirm()" class="btn btn-primary mr-3 w-25 ">Ok</button>
+        <button mat-button (click)="closeTop()" class="btn btn-cancel w-25">Cancel</button>
+    </div>
+
+</div>
+    
+<div class="other-popup " *ngIf="PrescriptionList">
+    <div class="popup-header">
+        <p class="mb-0 float-left text-white">Pick Prescription</p>
+        <a (click)="closeTop()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div class="row m-0">
+        <div class="col-12">
+            <dx-list (onSelectionChanged)="onSelectionChanged($event)" #list [dataSource]="PrescriptionList" [height]="150"
+                [pullRefreshEnabled]="false" selectionMode="single" [searchEnabled]="false" searchMode="contains">
+                <div *dxTemplate="let data of 'item'">
+                    <div class="row">
+                        <div class="col-6">
+                            {{data.AntDate}}
+                        </div>
+                        <div class="col-6">
+                            {{data.Antib}}
+                        </div>
+                    </div>
+                </div>
+            </dx-list>
+       
+        </div>
+        
+    </div>
+    
+    <p class="px-3">By clicking on cancel button test mode will reset* </p>
+    <div class="text-center my-3">
+        <button mat-button [disabled]="!radioSelected" (click)="confirm()" class="btn btn-primary mr-3 w-25 ">Ok</button>
+        <button mat-button (click)="closeTop()" class="btn btn-cancel w-25">Cancel</button>
+    </div>
+
+</div>
+
+<div class="other-popup " *ngIf="MultiToothList">
+    <div class="popup-header">
+        <p class="mb-0 float-left text-white">Pick MTI Group</p>
+        <a (click)="closeTop()" class="close-btn curpont float-right">X</a>
+    </div>
+    <!-- <label id="example-radio-group-label"></label> -->
+    <div class="row m-0">
+        <div class="col-12">
+            <dx-list class="pick-list" (onSelectionChanged)="onSelectionChanged3($event)" #list [dataSource]="MultiToothList" [height]="150"
+                [pullRefreshEnabled]="false" selectionMode="single" [searchEnabled]="false" searchMode="contains">
+                <div *dxTemplate="let data of 'item'">
+                    <div class="row">
+                        <div class="col-6">
+                            {{data.MTD}}
+                        </div>
+                        <div class="col-6">
+                            {{data.Teeth}}
+                        </div>
+                    </div>
+                </div>
+            </dx-list>
+            <!-- <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                [(ngModel)]="radioSelected">
+                <mat-radio-button class="example-radio-button" *ngFor="let item of MultiToothList" [value]="item.ctr">
+                    <div class="row">
+                        <div class="col-6">
+                            {{item.MTD}}
+                        </div>
+                        <div class="col-6">
+                            {{item.Teeth}}
+                        </div>
+                    </div>
+
+                </mat-radio-button>
+            </mat-radio-group> -->
+        </div>
+
+    </div>
+
+    <p class="px-3 mt-2">By clicking on cancel button test mode will reset* </p>
+    <div class="text-center my-3">
+        <button mat-button [disabled]="!radioSelected" (click)="confirm()" class="btn btn-primary mr-3 w-25 ">Ok</button>
+        <button mat-button (click)="closeTop()" class="btn btn-cancel w-25">Cancel</button>
+    </div>
+
+</div>
+
+<div class="other-popup " *ngIf="dateRangeStatus">
+    <div class="popup-header">
+        <p class="mb-0 float-left text-white">Pick Dates</p>
+        <a (click)="closeTop()" class="close-btn curpont float-right">X</a>
+    </div>
+    <!-- <label id="example-radio-group-label"></label> -->
+    <div class="row m-0">
+        <div class="col-12">
+            <h5 class="font-weight-normal mt-3">Pick the Date Range</h5>
+            <div class="dx-field row">
+                <div class="dx-field-label col-md-3">Begin Date <span class="float-right">:</span></div>
+                <div class="dx-field-value col-md-9">
+                    <dx-date-box [(value)]="beginD" [(min)]="value" [(max)]="endD" type="date" valueChangeEvent="keyup"
+                        [(isValid)]="startValidRR">
+                    </dx-date-box>
+                </div>
+            </div>
+            <div class="dx-field row">
+                <div class="dx-field-label col-md-3">End Date <span class="float-right">:</span></div>
+                <div class="dx-field-value col-md-9">
+                    <dx-date-box [(value)]="endD" [(min)]="beginD" [(isValid)]="endValidRR" type="date"
+                        valueChangeEvent="keyup">
+                    </dx-date-box>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="px-3 mt-2">By clicking on cancel button test mode will reset* </p>
+    <div class="text-center my-3">
+        <button mat-button [disabled]="!(startValidRR && endValidRR)" (click)="dateDebit()" class="btn btn-primary mr-3 w-25 ">Ok</button>
+        <button mat-button (click)="closeTop()" class="btn btn-cancel w-25">Cancel</button>
+    </div>
+
+</div>
+

@@ -1,0 +1,229 @@
+<div class="other-popup">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Configure Letter Recipients</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div class="popup-body p-0">
+        <div class="row mx-0 mt-3">
+            <div class="col-sm-6 pr-0">
+                <!-- <dx-toolbar class="ed-tab-btns">
+            <dxi-item location="before" widget="dxButton" [options]="currentButtonOptions">
+            </dxi-item>
+            <dxi-item location="before" widget="dxButton" [options]="doctorsButtonOptions">
+            </dxi-item>
+            <dxi-item location="before" widget="dxButton" [options]="referringButtonOptions">
+            </dxi-item>
+            <dxi-item location="before" widget="dxButton" [options]="generalButtonOptions">
+            </dxi-item>
+            <dxi-item location="before" widget="dxButton" [options]="patientsButtonOptions">
+            </dxi-item>
+
+           
+        </dx-toolbar> -->
+                <div class="dialog__edit">
+                    <mat-tab-group (selectedTabChange)="onTabChanged($event)">
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Current</span>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Doctor</span>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Referring</span>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>General</span>
+                            </ng-template>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <span>Patients</span>
+                            </ng-template>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+
+                <div class="ed-table-wrap">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ed-table">
+
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                    [aria-label]="checkboxLabel()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="FirstName">
+                            <th mat-header-cell *matHeaderCellDef> First Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="LastName">
+                            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Email">
+                            <th mat-header-cell *matHeaderCellDef> Email
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Address">
+                            <th mat-header-cell *matHeaderCellDef class="left-section-header-width"> Address </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Role">
+                            <th mat-header-cell *matHeaderCellDef> Role </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Role}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col-1">
+                <div class="arrows-wrap">
+                    <div class="arrows-inner-wrap">
+                        <!-- // ======================== Latest changes as on date 19-01-2021  ==========================  -->
+
+                        <button mat-button (click)="Add()" class="btn-primary mt-5">> </button>
+
+                        <!-- <button mat-button (click)="Remove()" class="btn-primary">< </button>
+                    <button mat-button (click)="RemoveAll()" class="btn-primary"><<</button> -->
+
+                        <!-- // ======================== Latest changes as on date 19-01-2021  ==========================  -->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-5 pl-0">
+                <!-- // ======================== Latest changes as on date 19-01-2021  ==========================  -->
+
+
+                <div class="py-2 px-2 header__recipient">
+                    Recipients
+                </div>
+                <!-- // ======================== Latest changes as on date 19-01-2021  ==========================  -->
+
+                <div class="ed-table-wrap mt-3">
+                    <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8 ed-table">
+
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle2() : null"
+                                    [checked]="selection2.hasValue() && isAllSelected2()"
+                                    [indeterminate]="selection2.hasValue() && !isAllSelected2()"
+                                    [aria-label]="checkboxLabel2()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection2.toggle(row) : null;"
+                                    [checked]="selection2.isSelected(row)" [aria-label]="checkboxLabel2(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="FirstName">
+                            <th mat-header-cell *matHeaderCellDef> First Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="LastName">
+                            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Email">
+                            <th mat-header-cell *matHeaderCellDef> Email
+                            </th>
+
+                            <td mat-cell *matCellDef="let element;let i=index;">
+                                <dx-select-box [items]="recipients" placeholder="" [(ngModel)]="element.Email_ToType" (ngModelChange)="onValueChanged(element, i)"
+                                    [showClearButton]="false">
+                                </dx-select-box>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Address">
+                            <th mat-header-cell *matHeaderCellDef class="right-section-header-width"> Address </th>
+                            <td mat-cell *matCellDef="let element;let i=index;">
+                               {{element.Address}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Role">
+                            <th mat-header-cell *matHeaderCellDef> Role </th>
+                            <td mat-cell *matCellDef="let element; let i = index">
+                                <div class="d-flex align-items-center">
+                                    {{element.Role}} <span class="material-icons cp  ml-2 font-22 color-theme" (click)="removeRecepient(i)">
+                                        close</span>
+                                    <!-- <img src="../../assets/images/cancel.svg" alt="" height="12px"
+                                        class="ml-2" (click)="removeRecepient(i)"> -->
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns1;" (click)="selection2.toggle(row)">
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mx-0">
+            <div class="col-sm-6">
+                <!-- <div class=" py-3 " id="nav-current" role="tabpanel" aria-labelledby="nav-current-tab">
+
+                    <div class="row align-items-center">
+                        <div class="col-10">
+                            <div class="form-group row align-items-center">
+                                <label class="col-sm-12 col-form-label" for="Subject">More Addresses:</label>
+                                <div class="col-sm-12">
+                                    <input type="email" [(ngModel)]="customEmail" placeholder="" class="form-control">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-2 p-0 pointer">
+                            <button mat-button (click)="AddEmails()" class="btn-primary mt-3">>> </button>
+                        </div>
+
+                    </div> 
+                </div> -->
+            </div>
+            <div class="col-sm-6">
+                <div class="text-right  same-size-btn py-3">
+                    <button mat-button [disabled]="tableDataRecipients.length == 0" (click)="submit()"
+                        class="btn-primary mr-3">OK </button>
+                    <button mat-button (click)="close()" class="btn-primary">Cancel </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="other-popup match-popup">
+    <div class="popup-header">
+        <p class="mb-0 text-capitalize float-left text-white">Pick Match List</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div id="matchList" class="popup-body">
+        <div *ngFor="let item of SelectedshowMatchLists; let i = index" class="row align-items-center">
+            <!-- <div class="arrow-wrap">
+                <a class="page-link mt-3" href="javascript:void(0);">
+                    {{i+1}}
+                </a>
+            </div> -->
+            <div class="col-5 pr-0">
+
+                <div class="form-group mb-0 mt-2">
+                    <label for="report" *ngIf="i == 0">Value:</label>
+                    <div class=" select-list">
+                        <select [(ngModel)]="item.value" class="form-control">
+                            <option *ngFor="let format of dropDownData" [value]="format">
+                                {{format}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="form-group mb-0 mt-2">
+                    <label for="text" *ngIf="i == 0" class="">Text:</label>
+
+                    <div class="">
+                        <input [(ngModel)]="item.text" type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 p-0">
+                <div class="form-group  mb-0">
+                    <label for="text" *ngIf="i == 0" class="d-block p-2"></label>
+                    <button mat-button class="btn btn-sidebar match-btn ar-btn-ico mt-1" (click)="Remove(i)"><img src="assets/images/bin.svg"
+                            alt="Toggle" class="img-fluid pointer" /></button>
+                    <button mat-button class="btn match-btn btn-sidebar text-center mt-minus ar-btn-ico "
+                        *ngIf="i+1 == SelectedshowMatchLists.length" (click)="AddEntry()"><img
+                            src="assets/images/more.svg" alt="Toggle" class="img-fluid  pointer" /></button>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <div class="popup-footer">
+        <div class="mb-2 my-3 text-right">
+            <button mat-button (click)="Submit()" class="btn btn-sidebar mr-3"> Ok</button>
+            <button mat-button (click)="close()" class="btn btn-sidebar">Cancel</button>
+        </div>
+    </div>
+
+</div>

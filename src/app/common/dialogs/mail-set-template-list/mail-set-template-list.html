@@ -1,0 +1,27 @@
+<div class="other-popup mail-set manage-para">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Select Template</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div class="popup-body">
+        <div *ngIf="!TemplateList" class="ml-loader"></div>
+        <div class="overHei template-mail-wrap" [hidden]="!TemplateList">
+            
+            <mat-selection-list #tokens [(ngModel)]="selectedmultipleToken"
+                >
+                <mat-list-option [value]="item" *ngFor="let item of TemplateList">
+                    <div class="row">
+                        <div class="col">
+                            {{item.TemplateName}}
+                        </div>
+                    </div>
+        
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
+        <div class="text-right mt-3 mb-2">
+            <button mat-button [disabled]="selectedmultipleToken.length==0" (click)="Submit()" class="btn-primary mr-2">Ok</button>
+            <button mat-button (click)="close()" class="btn-primary">Cancel</button>
+        </div>
+    </div>
+</div>

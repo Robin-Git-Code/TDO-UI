@@ -1,0 +1,141 @@
+<div class="other-popup manage-para option-popup">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Template Default Delivery Options</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+
+    <!-- <div class="list-container">
+        
+    </div> -->
+
+    <div class="row mx-0 my-3">
+        <div class="col-md-4">
+            <div class="list-container template-options mt-0">
+                <dx-list [selectedItemKeys]="selectedTemplate" [disabled]="editClicked"
+                    (onSelectionChanged)="onSelectionChanged($event)" #list [dataSource]="templateList" [height]="200"
+                    [pullRefreshEnabled]="false" selectionMode="single" [searchEnabled]="true" searchExpr="TemplateName"
+                    paginate="'false'" searchMode="contains">
+                    <div *dxTemplate="let data of 'item'">
+                        <div>{{data.TemplateName}}</div>
+                    </div>
+                </dx-list>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="  ">
+                <div class=" ">
+                    <div class="option-toolbar mb-1">
+                        <dx-toolbar>
+                            <dxi-item [disabled]="!selectedTemplate || editClicked" location="before" widget="dxButton" [options]="editButtonOptions">
+                            </dxi-item><!---->
+                            
+                            <dxi-item [disabled]="!editClicked"  location="before" widget="dxButton" [options]="saveButtonOptions">
+                            </dxi-item><!---->
+                            
+                            <dxi-item [disabled]="!editClicked" location="before" widget="dxButton" [options]="resetButtonOptions">
+                            </dxi-item><!---->
+                            
+                            <!-- <dxi-item location="before" widget="dxButton" [options]="cancelButtonOptions">
+                            </dxi-item> -->
+                            <!---->
+                            
+                            </dx-toolbar>
+                            <!-- <button mat-button [disabled]="!selectedTemplate || editClicked" (click)="EditOptions()"
+                                class="btn btn-primary mr-2  ">Edit</button>
+                            <button mat-button [disabled]="!editClicked" (click)="SaveOptions()"
+                                class="btn btn-primary mr-2  ">Save</button>
+                            <button mat-button (click)="resetAllVal()" class="btn btn-primary mr-2  ">Reset</button>
+                            <button mat-button (click)="close()" class="btn btn-primary mr-2  ">Cancel</button> -->
+                    </div>
+                </div>
+
+                <div class="h-100 right-wrap">
+                    <div class="tab-wrap">
+                        <button mat-button (click)="tabStatus('1')" [ngClass]="{'btn-primary':deliveryTab}"
+                            class="btn btn-primary mr-2">Delivery</button>
+                        <button mat-button [disabled]="!editClicked" (click)="tabStatus('2')"
+                            [ngClass]="{'btn-primary':subjectTab}" class="btn btn-primary">Subject</button>
+                    </div>
+                    <div *ngIf="deliveryTab" class="delivery-tab">
+                        <dx-list [disabled]="!editClicked" id="List"
+                            (onSelectionChanged)="onSelectionChangeList($event)" class="list-scroll" #list
+                            [dataSource]="SelectedDeliveryLists" [allowItemDeleting]="true" selectionMode="none"
+                            [searchEnabled]="false" searchExpr="TemplateName" searchMode="contains">
+                            <div *dxTemplate="let data of 'item'" class="select-wrap">
+                                <dx-select-box class="w-32 float-left mb-2" (onSelectionChanged)="ontoWhomChange($event,data)" [dataSource]="toWhomList"
+                                    displayExpr="Role" [searchMode]="'contains'" [value]="data.myToWhomList" [searchExpr]="'Role'" [searchEnabled]="false">
+                                </dx-select-box>
+                                <dx-select-box class="w-32 float-left mb-2" (onSelectionChanged)="onToChange($event,data)" [dataSource]="toList"
+                                    displayExpr="name" [searchMode]="'contains'" [value]="data.mytoList" [searchExpr]="'name'" [searchEnabled]="false">
+                                </dx-select-box>
+                                <dx-select-box class="w-32 float-left mb-2" (onSelectionChanged)="onChangeMailType($event, data)"  [dataSource]="selectedMailType"
+                                displayExpr="name" [searchMode]="'contains'" [value]="data.newMailType" [searchExpr]="'name'" [searchEnabled]="false">
+                            </dx-select-box>
+                            </div>
+
+                        </dx-list>
+                        <div>
+                        </div>
+                        <div class="text-right">
+                            <button mat-button [disabled]="!editClicked" (click)="Add()"
+                                class="btn btn-primary my-3 mr-2  ">Add</button>
+                            <!-- <button (click)="Remove()" class="btn btn-primary my-3 ">Del</button> -->
+
+                        </div>
+                        <div class="border-tdo p-3 mb-2">
+                            <div>
+                                <div *ngFor="let item of infoListDocPatient">
+                                    General Doctor : {{item.GeneralDoctor}}
+                                    Patient : {{item.Patient}}
+                                    Referring Doctor : {{item.ReferingDoctor}}
+                                </div>
+                            </div>
+                            infoListDocPatient
+                        </div>
+
+
+                    </div>
+                    <div *ngIf="subjectTab" class="delivery-tab pb-4">
+                        <div>
+                            <p>
+                                Append to subject:
+                            </p>
+                            Subject :
+                            <input [(ngModel)]="mySubject" type="text" class="form-control mt-1">
+                            <div class="row">
+                                <div class="col-md-6 pr-0">
+                                    <button mat-button (click)="AddSubject('<<Patient_FirstName>>')"
+                                        class="btn btn-primary w-100  mt-3  ">Pat. First Name</button>
+                                    <button mat-button (click)="AddSubject('<<GenDr_FirstName>>')"
+                                        class="btn btn-primary w-100  mt-3  ">Gen. Dr First Name</button>
+                                    <button mat-button (click)="AddSubject('<<RefDr_FirstName>>')"
+                                        class="btn btn-primary w-100  mt-3  ">Ref. Dr First Name</button>
+                                    <button mat-button (click)="AddSubject('<<Patient_FirstInitial>>')"
+                                        class="btn btn-primary w-100  mt-3  ">Pat. First Initial</button>
+                                    <button mat-button (click)="AddSubject('<<Patient_Tooth>')"
+                                        class="btn btn-primary w-100  mt-3  ">Tooth</button>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <button mat-button (click)="AddSubject('<<Patient_LastName>>')"
+                                        class="btn btn-primary w-100 mt-3  ">Pat. Last Name</button>
+                                    <button mat-button (click)="AddSubject('<<GenDr_LastName>>')"
+                                        class="btn btn-primary w-100  mt-3  ">Gen. Dr Last Name</button>
+                                    <button mat-button (click)="AddSubject('<<RefDr_LastName>>')"
+                                        class="btn btn-primary w-100  mt-3  ">Ref. Dr Last Name</button>
+
+                                    <button mat-button (click)="AddSubject('<<Patient_LastInitial>>')"
+                                        class="btn btn-primary w-100  mt-3  ">Pat. Last Initial</button>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

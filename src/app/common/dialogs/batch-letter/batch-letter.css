@@ -1,0 +1,19 @@
+/* .overHei {
+    max-height: 140px !important;
+    overflow-y  : scroll !important;    
+} */
+
+.overHei.list-wrapper .mat-list-base {
+    max-height: 160px !important;
+    overflow-y: scroll !important;
+    border: 1px solid #afdaf2;
+}
+.batch-tab input.form-control {
+    padding: 0px 5px;
+}
+.pl-12 {
+    padding-left: 12px;
+}
+.pr-18{
+    padding-right: 18px !important;
+}

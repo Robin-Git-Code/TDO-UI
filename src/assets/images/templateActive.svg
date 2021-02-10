@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30.058394104691843" height="22.29927004758713" fill="none" style=""><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none" class="" style=""/>
+
+<defs>
+<clipPath id="clip0">
+<rect width="16.670000076293945" height="16.670000076293945" fill="white" id="svg_1"/>
+</clipPath>
+</defs>
+<g class="currentLayer" style=""><title>Layer 1</title><g clip-path="url(#clip0)" id="svg_2" class="" fill="#2c2c2c" fill-opacity="1" opacity="1">
+<path d="M16.0746 0H0.595376C0.266265 0 0 0.266265 0 0.595376V16.0747C0 16.4037 0.266265 16.67 0.595376 16.67H16.0747C16.4037 16.67 16.67 16.4038 16.67 16.0747V0.595376C16.67 0.266265 16.4037 0 16.0746 0V0ZM1.19071 1.19071H10.7164V7.73964H1.19071V1.19071ZM1.19071 15.4793V8.93036H10.7164V15.4793H1.19071ZM15.4793 15.4793H11.9072V1.19071H15.4793V15.4793Z" fill="#2c2c2c" id="svg_3" fill-opacity="1" opacity="1"/>
+</g></g></svg>

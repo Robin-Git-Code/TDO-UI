@@ -1,0 +1,93 @@
+<div class="other-popup mail-set">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Create mail set</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div class="popup-body">
+        <div class="border-tdo mb-4">
+            <div class="form-group row m-0 ">
+            
+                <div class="w-100 border-btm  pl-3">
+                   
+                  <label class="col-sm-10 col-form-label" for="Subject">Available mail sets:</label>
+                    <!--  <button mat-button class="float-right btn btn-primary option-btn" (click)="openOptions()">Options</button>-->
+                <button class="float-right" (click)="openOptions()" mat-icon-button matTooltip="Mail Set Options">
+                <span class="material-icons">
+                    settings
+                </span>
+                </button>
+                </div>
+               
+                <div class="overHei w-100 h-100">
+                    <mat-selection-list style="height:100px" #tokens [(ngModel)]="selectedmultipleToken"
+                        (ngModelChange)="onTokenModelChange()">
+                        <mat-list-option [value]="item" *ngFor="let item of MailsetList">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    {{item.MailSetName}}
+                                </div>
+                                
+                            </div>
+    
+                        </mat-list-option>
+                    </mat-selection-list>
+                    
+                    <p *ngIf="TokenList?.length==0">No result found</p>
+                </div>
+                <!-- <div class="ml-loader"></div> -->
+            </div>
+        </div>
+        
+
+        <div>
+            <div class="table-responsive table-height">
+                <table class="configure-table table mb-0 h-100">
+                    <thead>
+                        <tr>
+                            <th> Mail Set</th>
+                            <th>Letter Template</th>
+                            <th>Role</th>
+                            <th>Mail Type</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="showListMailsets?.length==0 || !showListMailsets">
+                            <td colspan="4">
+                                <div class="no-result-wrap">
+                                    <div class="no-result-inner">
+                                        <img src="assets/images/recording.png"/>
+                                        <p class="mb-0">No result found</p>
+                                    </div>
+
+                                </div>
+                                
+                            </td>
+                        </tr>
+                        <tr *ngFor="let item of showListMailsets">
+                            <td>{{item.MailSetName}}</td>
+                            <td>{{item.TemplateName}}</td>
+                            <td>{{item.Role}}</td>
+                            <td>{{item.MailType}}</td>
+                        </tr>
+                   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="btn-wrap my-3 justify-content-end">
+
+            
+                <button mat-button (click)="saveSets('NewLetter/CreateMailSet')" type="button" class="btn btn-primary blue mr-2 same-size">Save</button>
+            
+            
+                <button mat-button (click)="saveSets('NewLetter/SendMailSet')" type="button" class="btn btn-primary blue mr-2 same-size">Send</button>
+            
+            
+                <button mat-button (click)="close()" type="button" class="btn btn-primary blue same-size">Cancel</button>
+           
+        </div>
+
+    </div>
+
+</div>

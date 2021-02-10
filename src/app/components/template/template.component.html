@@ -1,0 +1,321 @@
+<p style="margin-bottom: 0;"></p>
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <header (openOptionDialog)="openOptionsDialog()" (callSaveTemplateApi)="SaveTemplate(true)"></header>
+
+    <div class="tab-content" id="nav-tabContent">
+
+        <div class="tab-pane fade show active sidebar-wrap" id="nav-template" role="tabpanel"
+            aria-labelledby="nav-template-tab">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 p-0">
+                        <div class="my-2 setting-form">
+                            <h4 class="border-btm">Template</h4>
+                            <div class="form-group row align-items-center mb-1">
+                                <label for="Template" class="col-sm-2 col-form-label">Name<span
+                                        class="float-right">:</span></label>
+                                <div class="col-sm-10">
+                                    <div class="dx-field">
+                                        <div class="dx-field-value">
+                                            <dx-select-box class="form-control t-select" [disabled]="!TestButtonShow"
+                                                (onSelectionChanged)="onSelectionChanged($event)"
+                                                [dataSource]="TemplateList" displayExpr="TemplateName"
+                                                [searchMode]="'contains'" [value]="resetVal"
+                                                [searchExpr]="'TemplateName'" [searchEnabled]="true"></dx-select-box>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-sm-2 col-form-label" for="Subject">Subject<span
+                                        class="float-right">:</span></label>
+                                <div class="col-sm-10">
+                                    <input [disabled]="!TestButtonShow" [(ngModel)]="templateSelectData.Subject"
+                                        type="text" class="form-control" id="Subject" placeholder="">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="btn-wrap">
+                                        <button mat-button (click)="OpenNewDoc()" type="button"
+                                            class="btn line-height-18 btn-primary">New</button>
+                                        <button mat-button [disabled]="tempInitialFixed" type="button"
+                                            (click)="SaveTemplate(false)"
+                                            class="btn line-height-18 btn-primary">Save</button>
+                                        <button mat-button type="button" (click)="SaveTemplateAs()"
+                                            class="btn line-height-18 btn-primary">Save
+                                            as</button>
+                                        <button mat-button [disabled]="!selectedTemplate || tempInitialFixed"
+                                            (click)="RenameTemp()" type="button"
+                                            class="btn line-height-18 btn-primary">Rename</button>
+                                        <img (click)="DeleteTemplate()" src="assets/images/bin.svg" alt="Toggle"
+                                            class="img-fluid float-right pointer" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="form-group mt-2 row align-items-center">
+                                    <label class="col-sm-2 col-form-label" for="printer">Printer:</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="printer">
+                                            <option></option>
+                                            <option>2</option>
+                                            <option>TDO CBCT Report</option>
+                                            <option>4</option>
+                                            <option>TDO CBCT Report</option>
+                                        </select>
+                                    </div>
+                                    
+                                </div> -->
+                            <h4 class="border-btm mt-3">Token/Merge data fields</h4>
+                            <div class="row align-items-center mt-3">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="pick-info">Filter information area<span
+                                                class="float-right">:</span></label>
+
+                                        <!-- <select class="form-control" id="pick-info">
+                                                    <option>All</option>
+                                                    <option>2</option>
+                                                    <option>TDO CBCT Report</option>
+                                                    <option>4</option>
+                                                    <option>TDO CBCT Report</option>
+                                                </select>     -->
+                                        <!-- <div class=" select-list">
+                                            <select [disabled]="!TestButtonShow" class="form-control"
+                                                (change)="onChangePickInfo($event.target.value)">
+                                                <option [value]="'0'">All</option>
+                                                <option *ngFor="let item of PickInformationAreaList" [value]="item.ID">
+                                                    {{item.Name}}</option>
+                                            </select>
+                                        </div> -->
+                                        <div class="dx-field">
+                                            <div class="dx-field-value">
+                                                <dx-select-box class="form-control t-select"
+                                                    [disabled]="!TestButtonShow"
+                                                    (onSelectionChanged)="onChangePickInfo($event)"
+                                                    [dataSource]="PickInformationAreaList" displayExpr="Name"
+                                                    [searchMode]="'contains'" [value]="defaultPickInfo"
+                                                    [searchExpr]="'Name'" [searchEnabled]="false">
+                                                </dx-select-box>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="keyword">Search<span class="float-right">:</span></label>
+                                        <input [disabled]="!TestButtonShow" (ngModelChange)="searchvaluechange($event)"
+                                            [(ngModel)]='searchKeyword' type="text" class="form-control" id="keyword"
+                                            placeholder="" #searchKeywordRef>
+                                    </div>
+
+                                </div>
+                                <!-- <div class="col-sm-1 p-0 pointer" (click)="onFilter()">
+                                    <img src="assets/images/filter.svg" alt="Toggle"
+                                        class="img-fluid  filter-ico" />
+                                </div> -->
+
+                            </div>
+
+                            <div class="row">
+                                
+                              
+
+                                <div class="col-12">
+                                    <div class="py-3" *ngIf="!showErrorInfo">
+                                        <div class="ml-loader"></div>
+                                    </div>
+
+                                    <dx-data-grid [dataSource]="TokenList" *ngIf="showErrorInfo" showBorders="true"
+                                        [height]="200" [width]="'100%'" >
+
+                                        <dxo-scrolling mode="virtual"></dxo-scrolling>
+                                        <dxi-column dataField="Name" caption="Info Area" [width]="100">
+                                        </dxi-column>
+                                        <dxi-column dataField="Handle" caption="Data Field" [width]="180">
+                                        </dxi-column>
+
+                                        <dxi-column  [width]="70"  name="command-editing" [allowFiltering]="false"
+                                            [allowSorting]="false" [allowEditing]="true" cellTemplate="cellTemplate">
+
+
+                                            <div class="dx-field-value info-insert-btn"
+                                                *dxTemplate="let data of 'cellTemplate'">
+                                                <dx-drop-down-button class="w-100" [splitButton]="true"
+                                                    [useSelectMode]="false" text="Insert" [items]="FormatList"
+                                                    displayExpr="key" (onItemClick)="onItemClick($event,data.data)"
+                                                    (onButtonClick)="onButtonClick($event, data.data,false)">
+                                                </dx-drop-down-button>
+                                            </div>
+                                        </dxi-column>
+                                    </dx-data-grid>
+                                </div>
+
+                                <!-- ======================== Latest changes as on date 19-01-2021 ========================== -->
+                            </div>
+                            <h4 class="border-btm mt-3">Image</h4>
+                            <div class="row align-items-center mt-2">
+                                <div class="col-sm-12 p-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-7 pl-0">
+                                            <div class="form-group row align-items-center ">
+                                                <label class=" col-sm-3" for="picture">Category:</label>
+                                                <div class="col-sm-9 pl-3-5 pr-0">
+                                                    <div class="dx-field">
+                                                        <div class="dx-field-value">
+                                                            <dx-select-box class="form-control t-select"
+                                                                [disabled]="!TestButtonShow"
+                                                                (onSelectionChanged)="onChangePicture($event)"
+                                                                [dataSource]="PictureList" displayExpr="key"
+                                                                [searchMode]="'contains'" [value]="resetPictureInfo"
+                                                                [searchExpr]="'key'" [searchEnabled]="false">
+                                                            </dx-select-box>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5 text-right">
+                                            <mat-radio-group [(ngModel)]="pictureStatus" aria-label="Select an option"
+                                                class="tdo-radio">
+                                                <mat-radio-button value="inline" class="mr-2">Inline</mat-radio-button>
+                                                <mat-radio-button value="outline">Outline </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row mx-0 my-2 align-items-center">
+                                <div class="col-sm-7 pl-0 pr-2">
+                                    <div class="row">
+                                        <div class="col-sm-7">
+                                            <div class="form-group row align-items-center mb-0">
+                                                <label class="col-sm-6 pl-0 col-form-label " for="width">Width<span
+                                                        class="float-right">:</span></label>
+                                                <div class="col-sm-6 pr-0">
+                                                    <input (ngModelChange)="mychange($event)"
+                                                        [disabled]="!TestButtonShow"
+                                                        [(ngModel)]="templateSelectData.width"
+                                                        (keypress)="onKey($event)" maxlength="4" class="form-control"
+                                                        id="width" placeholder="">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5 pr-0">
+                                            <div class="form-group row align-items-center mb-0">
+                                                <label class="col-sm-5 pl-0 col-form-label "
+                                                    for="height">Height:</label>
+                                                <div class="col-sm-7 pr-0">
+                                                    <input (ngModelChange)="mychange($event)"
+                                                        [disabled]="!TestButtonShow"
+                                                        [(ngModel)]="templateSelectData.height"
+                                                        (keypress)="onKey($event)" maxlength="4" class="form-control"
+                                                        id="height" placeholder="">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group mb-0 test-btn-wrap text-right">
+                                        <button mat-button [disabled]="!TestButtonShow|| invalidInput"
+                                            (click)="InsertClickPicture()" for="chooseFile"
+                                            class="btn line-height-18 btn-primary w-100">Insert
+                                            <input type="file" class="form-control cstm-file-input" id="chooseFile"
+                                                placeholder="">
+                                            <img src="assets/images/insertPicture-white.svg" alt="Toggle"
+                                                class="img-fluid  ml-2 picture-ico" />
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <h4 class="border-btm mt-3">Miscellaneous</h4>
+                            <div class="row mt-2">
+                                <div class="col-sm-7">
+                                    <dx-check-box [(ngModel)]="envelop" [value]="envelop" text="This is Envelope"
+                                        class="mb-2 font-12 w-100">
+                                    </dx-check-box>
+                                    <dx-check-box [(ngModel)]="fixedL" [disabled]="tempInitialFixed"
+                                        class="mb-2 font-12 w-100" [value]="fixedL" text="Fixed Letter Template">
+                                    </dx-check-box>
+                                    <dx-check-box [(ngModel)]="disableStatus" class="mb-2 font-12 w-100"
+                                        [value]="disableStatus" text="Don't use Template">
+                                    </dx-check-box>
+                                    <!-- <label class="form-check-label mr-1 custom-label1 mb-2" for="Envelope">
+                                        This is Envelope
+                                        <input class="form-check-input" type="checkbox" name="inlineOptions"
+                                            id="Envelope" value="option2">
+                                        <span class="checkmark1"></span>
+                                    </label>
+                                    <label class="form-check-label mr-1 custom-label1 mb-2" for="Envelope1">
+                                        Fixed Letter Template
+                                        <input [disabled]="tempInitialFixed" [(ngModel)]="fixedL" class="form-check-input" type="checkbox" name="inlineOptions"
+                                            id="Envelope1" value="option2">
+                                        <span class="checkmark1"></span>
+                                    </label>
+                                    <label class="form-check-label mr-1 custom-label1" for="Envelope2">
+                                        Don't use Template
+                                        <input [disabled]="tempInitialFixed" [(ngModel)]="disableStatus" class="form-check-input" type="checkbox" name="inlineOptions"
+                                            id="Envelope2" value="option2">
+                                        <span class="checkmark1"></span>
+                                    </label> -->
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="test-btn-wrap">
+                                        <button mat-button [disabled]="!TestButtonShow" (click)="testDoc();"
+                                            type="button"
+                                            class="btn  line-height-18 btn-primary w-100 d-block mb-3">Test</button>
+                                        <button mat-button [disabled]="TestButtonShow" (click)="testReset()"
+                                            type="button" class="btn line-height-18 btn-primary w-100 d-block">
+                                            Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group mt-2 row align-items-center">
+                                        <label class="col-sm-2 pl-0" for="report">Report Type<span
+                                                class="float-right">:</span></label>
+                                        <div class="col-sm-10 pr-0">
+                                            <div class="dx-field">
+                                                <div class="dx-field-value">
+                                                    <dx-select-box class="form-control t-select"
+                                                        [disabled]="!TestButtonShow"
+                                                        (onSelectionChanged)="onChangeReportFormat($event)"
+                                                        [dataSource]="ReportList" displayExpr="key"
+                                                        [searchMode]="'contains'" [value]="defaultReportList"
+                                                        [searchExpr]="'key'" [searchEnabled]="false">
+                                                    </dx-select-box>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</nav>

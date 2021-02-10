@@ -1,0 +1,20 @@
+.dxreControl {
+  float: right !important;
+}
+.testTarun {
+  float: left !important;
+}
+.sidebar {
+  width: 28.3%;
+}
+.selectedrow {
+  background-color: #1d90b5;
+}
+.overHei{
+  max-height: 200px !important;
+overflow: scroll  !important;
+}
+
+.search-results {
+  height: 100%;
+}

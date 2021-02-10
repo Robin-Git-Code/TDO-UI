@@ -1,0 +1,15 @@
+<div class="save-popup text-center">
+    <a (click)="closeTop();" class="close-btn curpont">X</a>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h4> {{data.showMessage}}</h4>
+            <input [(ngModel)]="description" placeholder="enter here" class="form-control" />
+            <div class="mt-3">
+                <button mat-button (click)="confirm()" class="btn btn-sidebar mr-3">Ok</button>
+                <button mat-button (click)="onNoClick()" class="btn btn-sidebar">Cancel</button>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>

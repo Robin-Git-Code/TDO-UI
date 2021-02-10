@@ -1,0 +1,27 @@
+<div class="other-popup">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Remove template</p>
+        <a (click)="close(false)" class="close-btn curpont float-right">X</a>
+    </div>
+
+    <div class="popup-body">
+        <div class="row my-3">
+            <div class="col-sm-10 offset-sm-1">
+                <h4>Please select the desired action</h4>
+                <ol>
+                    <li>"Delete" will render this template invisible.</li>
+                    <li>Selecting "Do Not Use" will hide this template from selection lists, except when editing templates.</li>
+                </ol>
+            </div>
+        </div>
+        <div class="text-right mb-2">
+            <button (click)="close(1)" mat-button type="button" class="btn btn-primary blue mr-2 same-size1">Do Not Use</button>
+
+
+            <button (click)="close(2)" mat-button type="button" class="btn btn-primary blue mr-2 same-size1">Delete</button>
+
+
+            <button (click)="close(false)" mat-button type="button" class="btn btn-primary blue same-size1">Cancel</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,347 @@
+<div class="other-popup option-popup">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Batch Letter</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div class="popup-body setting-form">
+        <div class="tab-wrap">
+            <button mat-button [ngClass]="{'btn-primary':tabStatusVal=='1'}" (click)="tabStatus('1')"
+                class="btn btn-primary mt-3 mr-1  ">Patient
+                Reports</button>
+            <button mat-button [ngClass]="{'btn-primary':tabStatusVal=='2'}" (click)="tabStatus('2')"
+                class="btn btn-primary mt-3 mr-1  ">Case
+                Reports</button>
+            <button mat-button [ngClass]="{'btn-primary':tabStatusVal=='3'}" (click)="tabStatus('3')"
+                class="btn btn-primary mt-3 mr-1  ">Referral
+                Ranking</button>
+        </div>
+        <div *ngIf="tabStatusVal=='1'" class="batch-tab">
+            <div>
+
+                <div class="form-group row align-items-center mb-0">
+                    <label for="Template" class="col-sm-2 pl-0 pr-18 col-form-label">Patient List Query <span class="float-right">:</span></label>
+                    <div class="col-sm-10 pl-12 pr-0">
+                        
+                        <div class="dx-field">
+                            <div class="dx-field-value">
+                                
+                                <dx-select-box class="form-control t-select patient-select" [value]="selectedplistQ"
+                                    (onSelectionChanged)="onSelectionChanged($event)" [dataSource]="patientList"
+                                    displayExpr="Name" [searchMode]="'contains'" [searchExpr]="'Name'"
+                                    [searchTimeout]="'200'" >
+                                </dx-select-box>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="selectedplistQ?.ID==2 || selectedplistQ?.ID==3">
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="dx-field-label">Initial Appointment Date</div>
+                            <div class="dx-field-value">
+                                <dx-date-box [(value)]="startDate" [(min)]="value" [(max)]="now" type="date" valueChangeEvent="keyup"
+                                    [(isValid)]="startValid">
+                                </dx-date-box>
+                            </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Ending Appointment Date</div>
+                            <div class="dx-field-value">
+                                <dx-date-box [(value)]="now" [(min)]="startDate" [(isValid)]="endValid" type="date"
+                                    valueChangeEvent="keyup">
+                                </dx-date-box>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div *ngIf="selectedplistQ?.ID==10 || selectedplistQ?.ID==11">
+                <div class="form-group row align-items-center mb-1">
+                    <label for="Template" class="col-sm-2 pl-0 pr-18 col-form-label">Doctor <span class="float-right">:</span></label>
+                    <div class="col-sm-10 pl-12 pr-0">
+                        <div class="dx-field">
+                            <div class="dx-field-value">
+                                <dx-select-box class="form-control t-select patient-select" [value]="doctorId"
+                                    (onSelectionChanged)="onSelectionDoc($event)" [dataSource]="DoctorList"
+                                    displayExpr="DrName" [searchMode]="'contains'" [searchExpr]="'DrName'"
+                                    [searchTimeout]="'200'" >
+                                </dx-select-box>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedplistQ?.ID==9">
+                <div class="row">
+                    <div class="col-md-8 pl-0">
+                        <div class="dx-field row">
+                            <div class="dx-field-label col-md-3">Begin Date <span class="float-right">:</span></div>
+                            <div class="dx-field-value col-md-9">
+                                <dx-date-box [(value)]="startDate" [(min)]="value" [(max)]="now" type="date" valueChangeEvent="keyup" [(isValid)]="startValid">
+                                </dx-date-box>
+                            </div>
+                        </div>
+                        <div class="dx-field row">
+                            <div class="dx-field-label col-md-3">End Date <span class="float-right">:</span></div>
+                            <div class="dx-field-value col-md-9">
+                                <dx-date-box [(value)]="now" [(min)]="startDate" [(isValid)]="endValid" type="date" valueChangeEvent="keyup">
+                                </dx-date-box>
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="form-group row mb-1">
+                                <label for="Template" class="col-sm-3 pl-0 col-form-label">Emerge Type <span class="float-right">:</span></label>
+                                <div class="overHei list-wrapper col-sm-9">
+                                    <mat-selection-list #tokens [(ngModel)]="selectedmultipleEmerg" (ngModelChange)="onSelectionEmerged()">
+                                        <mat-list-option [value]="item" *ngFor="let item of emergetypeList">
+                                            <div class="row">
+                                                <div class="col-sm-12 p-0">
+                                                    {{item.EmergeTypeName}}
+                                                </div>
+                                
+                                            </div>
+                                
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                    <p *ngIf="forList?.length==0">No result found</p>
+                                </div>
+                                <!-- <div class="col-sm-9">
+                                    <div class="dx-field">
+                                        <div class="dx-field-value">
+                                            <dx-select-box class="form-control t-select"
+                                                (onSelectionChanged)="onSelectionEmerged($event)"
+                                                [dataSource]="emergetypeList" displayExpr="EmergeTypeName"
+                                                [searchMode]="'contains'" [searchExpr]="'EmergeTypeName'"
+                                                [searchTimeout]="'200'" [minSearchLength]="'0'" [searchEnabled]="true">
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div>
+                            <div class="form-group row mb-1">
+                                <label for="Template" class="col-sm-4 pl-0 col-form-label">For <span class="float-right">:</span></label>
+                                <div class="overHei list-wrapper  col-sm-8 px-0" >
+                                    <mat-selection-list #tokens  [(ngModel)]="selectedmultipleFor"
+                                        (ngModelChange)="onForModelChange()">
+                                        <mat-list-option [value]="item" *ngFor="let item of forList">
+                                            <div class="row">
+                                                <div class="col-sm-12 float-break p-0">
+                                                    {{item.Name}}
+                                                </div>
+                                               
+                                            </div>
+                                
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                    <p *ngIf="forList?.length==0">No result found</p>
+                                </div>
+                                <!-- <div class="dx-field">
+                                    <div class="dx-field-value">
+                                        <dx-list class="form-control t-select"
+                                            (onSelectionChanged)="onSelectionEmerged($event)" [dataSource]="forList" selectionMode="multiple"
+                                            displayExpr="Name" [searchMode]="'contains'" [searchExpr]="'Name'"
+                                            [searchTimeout]="'200'"  [searchEnabled]="true">
+                                        </dx-list>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="form-group row align-items-center mt-3 mb-1">
+                                <label for="Template" class="col-sm-4 pl-0 col-form-label">Location <span class="float-right">:</span></label>
+                                <div class="col-sm-8 px-0">
+                                    <div class="dx-field">
+                                        <div class="dx-field-value">
+                                            <dx-select-box class="form-control t-select patient-select"  [value]="selectedLocation"
+                                                (onSelectionChanged)="onSelectionLocationChanged($event)" [dataSource]="locationList" displayExpr="PracticeName"
+                                                [searchMode]="'contains'" [searchExpr]="'PracticeName'" 
+                                                [searchEnabled]="true">
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="query-wrap">
+                <div class="query-inner">
+                    Custom query here
+                </div>
+                
+            </div> -->
+        </div>
+        <div *ngIf="tabStatusVal=='2'" class="batch-tab">
+            <!-- <div class="query-wrap mt-0 h-100">
+                <div class="query-inner"> -->
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="dx-field-label">Initial Completion Date:</div>
+                            <div class="dx-field-value">
+                                <dx-date-box [(value)]="startDateCR" [(min)]="value" [(max)]="nowCR" type="date" valueChangeEvent="keyup"
+                                    [(isValid)]="startValidCR">
+                                </dx-date-box>
+                            </div>
+                        </div>
+                        <div class="dx-field">
+                            <div class="dx-field-label">Ending Completion Date:</div>
+                            <div class="dx-field-value">
+                                <dx-date-box [(value)]="nowCR" [(min)]="startDateCR" [(isValid)]="endValidCR" type="date"
+                                    valueChangeEvent="keyup">
+                                </dx-date-box>
+                            </div>
+                        </div>
+                    <!-- </div>
+                </div> -->
+            </div>
+
+        </div>
+        <div *ngIf="tabStatusVal=='3'" class="batch-tab">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="dx-field row">
+                        <div class="dx-field-label col-md-3">Begin Date <span class="float-right">:</span></div>
+                        <div class="dx-field-value col-md-9">
+                            <dx-date-box [(value)]="startDateRR" [(min)]="value" [(max)]="nowRR" type="date" valueChangeEvent="keyup" [(isValid)]="startValidRR">
+                            </dx-date-box>
+                        </div>
+                    </div>
+                    <div class="dx-field row">
+                        <div class="dx-field-label col-md-3">End Date  <span class="float-right">:</span></div>
+                        <div class="dx-field-value col-md-9">
+                        <dx-date-box [(value)]="nowRR" [(min)]="startDateRR" [(isValid)]="endValidRR" type="date" valueChangeEvent="keyup">
+                        </dx-date-box>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="form-group row align-items-center mb-1">
+                            <label for="Template" class="col-sm-3 pl-0 col-form-label">Category <span class="float-right">:</span></label>
+                            <div class="col-sm-9">
+                                <div class="dx-field">
+                                    <div class="dx-field-value">
+                                        <dx-select-box class="form-control t-select patient-select"  [value]="selectedCategory"
+                                            (onSelectionChanged)="onSelectionCat($event)" [dataSource]="getCatList"
+                                            displayExpr="catName" [searchMode]="'contains'" [searchExpr]="'catName'"
+                                            [searchEnabled]="true">
+                                        </dx-select-box>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group row align-items-center mb-1">
+                            <label for="Template" class="col-sm-3 pl-0 col-form-label">Doctor <span class="float-right">:</span></label>
+                            <div class="col-sm-9">
+                                <div class="dx-field">
+                                    <div class="dx-field-value">
+                                        <dx-select-box class="form-control t-select patient-select" [value]="doctorId"
+                                            (onSelectionChanged)="onSelectionDoc($event)" [dataSource]="DoctorList"
+                                            displayExpr="DrName" [searchMode]="'contains'" [searchExpr]="'DrName'"
+                                             [searchEnabled]="true">
+                                        </dx-select-box>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 pl-0">
+                    <div>
+
+                        <div class="row mx-0">
+                            <label class="col-sm-3 pl-0 col-form-label" for="rank">Ranks<span class="float-right">:</span></label>
+                            <div class="col-sm-4 pr-2 pl-0">
+                                <div class="form-group row align-items-center mb-3">
+                                    
+                                    <div class="col-sm-12 pl-2 pr-0">
+                                        <input type="number" (keypress)="onKey2($event)" min="1" [(ngModel)]="fromRank" maxlength="4" class="form-control" id="rank" placeholder="">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4 pl-1 pr-0">
+                                <div class="form-group row align-items-center mb-0">
+                                    <label class="col-sm-1 pl-0 col-form-label text-center" for="rank">-</label>
+                                    <div class="col-sm-10 p-0">
+
+                                        <input type="number" min="1" (keypress)="onKey2($event)" [(ngModel)]="toRank" maxlength="4" class="form-control" id="" placeholder="">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mx-0">
+                        <label id="example-radio-group-label" class="mb-2 col-sm-3 pl-0">Order By<span class="float-right">:</span></label>
+                        <div class="col-sm-9 pl-0">
+                            
+                            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="orderBy">
+                                <div class="form-check pl-1  mb-2">
+                                    <mat-radio-button class="example-radio-button" [value]="1">
+                                        Rank
+                                    </mat-radio-button>
+                                </div>
+                                <div class="form-check pl-1  mb-2">
+                                    <mat-radio-button class="example-radio-button" [value]="2">
+                                        Alphabetical
+                                    </mat-radio-button>
+                                </div>
+                                
+                            </mat-radio-group>
+                        </div>
+                        
+                        <!-- <div class="mb-2">
+                            Order By:
+                        </div>
+                        <div class="pl-5">
+                            <div class="form-check form-check-inline mb-2">
+                                <label class="form-check-label mr-1 custom-label" for="inline">
+                                    Rank
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inline"
+                                        value="option1">
+                                    <span class="checkmark"></span>
+                                </label>
+
+
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label mr-1 custom-label" for="outline">
+                                    Alphabetical
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="outline"
+                                        value="option2">
+                                    <span class="checkmark"></span>
+                                </label>
+
+
+                            </div>
+                        </div> -->
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="text-right">
+            <button mat-button [disabled]="!(startValid && endValid) && tabStatusVal=='1' || !(startValidCR && endValidCR) && tabStatusVal=='2' || !(startValidRR && endValidRR) && tabStatusVal=='3'" (click)="validateGenerate()" class="btn btn-primary my-3 ">Generate</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,84 @@
+<div class="other-popup manage-para">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Manage paragraph</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+
+    <!-- <div class="list-container">
+        
+    </div> -->
+    <div class="row m-0">
+        <div class="col-md-4">
+            <div class="list-container">
+                <dx-list [selectedItemKeys]="selectedPara" (onSelectionChanged)="onSelectionChanged($event)"  #list [dataSource]="paragraphList" [height]="200" selectionMode="single"  [searchEnabled]="true" searchExpr="BoilerName"
+                searchMode="contains">
+                <div *dxTemplate="let data of 'item'">
+                    <div>{{data.BoilerName}}</div>
+                </div>
+                </dx-list>
+                
+            </div>
+            <button mat-button (click)="Add()" class="btn btn-primary my-3  ">Add</button>
+            <button mat-button (click)="Remove()" class="btn btn-primary my-3 float-right">Remove</button>
+        </div>
+        <div class="col-md-8">
+            <div class="h-100 ">
+             
+                    <!-- <mat-form-field class="example-full-width">
+                        <mat-label>Paragraph Name</mat-label>
+                        <input class="border-0" formControlName="name" matInput>
+                    </mat-form-field> -->
+                    <div class="form-group row align-items-center">
+                        <label class="col-sm-12 col-form-label" for="Subject">Paragraph Name:</label>
+                        <div class="col-sm-12">
+                            <input  type="text" [(ngModel)]="data.BoilerName" class="form-control"  placeholder="" #nameInput>
+                        </div>
+
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-sm-12 col-form-label" for="Subject">Content:</label>
+                        <div class="col-sm-12">
+                            <textarea  type="text" [(ngModel)]="data.Content" class="form-control para-det"  placeholder="" #contentArea></textarea>
+                        </div>
+
+                    </div>
+                    <!-- <p>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Content</mat-label>
+                            <textarea formControlName="text" class="border-0 para-det" matInput></textarea>
+                            <div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+                                <div *ngIf="f.text.errors.required">text is required
+                                </div>
+                            </div>
+                        </mat-form-field>
+                    </p>
+             -->
+                    <div class="text-right btm-btns">
+                      
+                        <button mat-button (click)="update()" class="btn btn-primary my-3 mr-3 ">Ok</button>
+                        <button mat-button (click)="close()" class="btn btn-primary my-3 ">Cancel</button>
+                    </div>
+              
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row m-0">
+        <div class="col-12">
+            <div class="notes-wrapper">
+                <h4 class="mb-2"><strong>Notes - </strong></h4>
+                <p><strong>"Add" -</strong> It adds new paragraph to this list.</p>
+                <p><strong>"Remove" -</strong> It removes highlighted paragraph from this list.</p>
+                <p><strong>"Ok" -</strong> It selects/returns paragraph and saves all unsaved paragraphs. Closes this popup/dialog.</p>
+                <p><strong>"Cancel" -</strong> It Closes this popup/dialog, returns blank string.</p>
+            </div>
+        </div>
+
+    </div> -->
+<!-- <mat-radio-group  style="height: 168px;
+    overflow: auto;" class="example-radio-group">
+    <mat-radio-button class="example-radio-button">
+        
+    </mat-radio-button>
+</mat-radio-group> -->
+
+</div>

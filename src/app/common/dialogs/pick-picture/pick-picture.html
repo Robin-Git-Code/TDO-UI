@@ -1,0 +1,177 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane" class="other-popup">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Pick Picture</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+
+    <div class="popup-body">
+        <div class=" p-3 ">            
+            <div class="row align-items-center">
+                <div class="col-sm-4 pr-0">
+                    <div class="border-tdo px-3 pb-2">
+                        <div class="form-group row align-items-center mb-0">
+                            <label for="tooth" class="col-sm-12 col-form-label">Image Size:</label>
+                            <div class="col-sm-12">
+                                <dx-select-box class="form-control t-select picture-select" 
+                                    (onSelectionChanged)="onsizeChange($event)" [dataSource]="imageSizeData" displayExpr="SIZE"
+                                    [searchMode]="'contains'" [value]="tempImageSize" [searchExpr]="'SIZE'" [searchEnabled]="false">
+                                </dx-select-box>
+                                <!-- <div class=" select-list">
+                                    <select class="form-control" [(ngModel)]="savedData.ImageSize" (change)="onsizeChange($event.target.value)">
+                                        <option *ngFor="let item of imageSizeData" [value]="item.ID">
+                                            {{item.SIZE}}</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center mb-0">
+                            <label for="tooth" class="col-sm-12 col-form-label">Filter By:</label>
+                            <div class="col-sm-12">
+                                <dx-select-box class="form-control t-selec picture-select" (onSelectionChanged)="onfilterChange($event)" [dataSource]="filterBy"
+                                    displayExpr="Text" [searchMode]="'contains'" [value]="filterDefault" [searchExpr]="'Text'"
+                                    [searchEnabled]="false">
+                                </dx-select-box>
+                                <!-- <div class=" select-list">
+
+                                    <select class="form-control" [(ngModel)]="savedData.FiltersBy" (change)="onfilterChange($event.target.value)">
+                                        <option *ngFor="let item2 of filterBy" [value]="item2.ID">
+                                            {{item2.Text}}</option>
+                                    </select>
+
+                                </div> -->
+                            </div>
+                            <div class="col-12 mt-2">
+                                <!-- <div *ngIf="filterList" class="border-tdo p-3">
+                                    <label *ngFor="let list of filterList; let i = index">
+                                        <input [checked]="list.checked" type="checkbox" >
+                                        {{list.Item}}
+                                    </label>
+                                </div> -->
+                                <div *ngIf="filterList" class="border-tdo img-list">
+                                    <mat-selection-list (selectionChange)="onSelection($event)" #tokens [(ngModel)]="selectedmultipleFilter">
+                                        <mat-list-option [value]="list" *ngFor="let list of filterList">
+                                            <div class="row">
+                                                <div class="col">
+                                                    {{ list.Item }}
+                                                </div>
+                                            </div>
+                                    
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                    <!-- <div *ngFor="let list of filterList; let i = index">
+                                        <mat-checkbox [checked]="list.checked" class="tdo-checkbox" (change)="valueChange2(list,$event.checked,i)">
+                                            {{ list.Item }}
+                                        </mat-checkbox>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row align-items-center mb-0">
+                            <label for="tooth" class="col-sm-12 col-form-label">Sort By :</label>
+                            <div class="col-12">
+                                <div *ngIf="filterBy" class="pick-sort">
+                                    <mat-selection-list (selectionChange)="onSelectionSortBy($event)" #sortby [(ngModel)]="selectedmultipleSortBy">
+                                        <mat-list-option [value]="unit" *ngFor="let unit of filterBy">
+                                            <div class="row">
+                                                <div class="col">
+                                                    {{ unit.Text }}
+                                                </div>
+                                            </div>
+                                    
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                    </div>
+                                    <!-- <div *ngIf="filterBy" class="border-tdo img-list p-3">
+                                        <div *ngFor="let unit of filterBy; let i = index">
+                                            <mat-checkbox [checked]="unit.checked" class="tdo-checkbox" (change)="valueChange(unit,$event.checked,i)">
+                                                {{ unit.Text }}
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>                                 -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="right-note-wrap img-wrap-height px-3 py-2">
+                        <ul class="image-list-wrap">
+                            <li *ngFor="let item of imageListDat; let i = index">
+                                <div (click)="callbackImageInsert(i)" [ngStyle]="{'width': mywidth,'max-width': mywidth , 'height':myheight,'max-height':myheight}">
+                                    <img  [src]="item.image" class="img-fluid pick-image" />
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- <div class="row mx-0">
+                            <div *ngFor="let item of imageListDat; let i = index"  class="col-md-3 p-1">
+                                <div (click)="callbackImageInsert(i)" [ngStyle]="{'width': mywidth,'max-width': mywidth , 'height':myheight,'max-height':myheight}">
+                                    <img  [src]="item.url" class="img-fluid pick-image" />
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="row">
+                            <div class="col-2 offset-1 p-1 ">
+                                <div class="image-wrapp">
+                                    <img src="assets/images/placeholder.svg" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+
+                            <div class="col-2 offset-2 p-1">
+                                <div class="image-wrapp">
+                                    <img src="assets/images/placeholder.svg" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+
+                            <div class="col-2 offset-3 p-1">
+                                <div class="image-wrapp">
+                                    <img src="assets/images/placeholder.svg" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2 offset-4 p-1">
+                                <div class="image-wrapp">
+                                    <img src="assets/images/placeholder.svg" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2 offset-5 p-1">
+                                <div class="image-wrapp">
+                                    <img src="assets/images/placeholder.svg" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2 offset-6 p-1">
+                                <div class="image-wrapp">
+                                    <img src="assets/images/placeholder.svg" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div> -->
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-3 mb-2">
+                <!-- <button style="margin-right: 10px;" (click)="insert()" class="btn-primary">Insert</button> -->
+                <button mat-button (click)="close()" class="btn-primary">Close</button>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+</div>

@@ -1,0 +1,135 @@
+<div class="other-popup manage-para option-popup">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Mail set options</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div class="row mx-0 my-3">
+        <div class="col-12">
+            <p>Mail Set List</p>
+        </div>
+        <div class="col-md-3">
+            <div class="list-container mt-0 left-mail-list">
+                
+                <dx-list [selectedItemKeys]="selectedMailSets" [disabled]="!DataHideStatus" (onSelectionChanged)="onSelectionChanged($event)" #list [dataSource]="MailsetList"
+                    [height]="200" [pullRefreshEnabled]="false" selectionMode="single" [searchEnabled]="false" searchExpr="MailSetName"
+                    searchMode="contains">
+                    <div *dxTemplate="let data of 'item'">
+                        <div>{{data.MailSetName}}</div>
+                    </div>
+                </dx-list>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="border-tdo px-3 mb-3">
+                <div class="row border-btm">
+                    <div class=" py-2 mb-1" style="margin-left: 15px;">
+                        <dx-toolbar>
+                        <dxi-item [disabled]="editClicked || !selectedMailSets" location="before" widget="dxButton"
+                            [options]="editButtonOptions">
+                        </dxi-item>
+                        <dxi-item location="before" widget="dxButton"
+                            [options]="addButtonOptions">
+                        </dxi-item>
+                        <dxi-item [disabled]="DataHideStatus" location="before" widget="dxButton" [options]="saveButtonOptions">
+                        </dxi-item>
+                        <dxi-item [disabled]="DataHideStatus" location="before" widget="dxButton" [options]="resetButtonOptions">
+                        </dxi-item>
+                        <!-- <dxi-item location="before" widget="dxButton" [options]="cancelButtonOptions">
+                        </dxi-item> -->
+                        </dx-toolbar>
+                        <!-- <button mat-button [disabled]="editClicked || !selectedMailSets" (click)="EditOptions()" class="btn btn-primary mr-2  ">Edit</button>
+                        <button mat-button [disabled]="!DataHideStatus" (click)="AddMailSet()" class="btn btn-primary mr-2  ">Add</button>
+                        <button mat-button [disabled]="DataHideStatus" (click)="SaveMailSetOptions()" class="btn btn-primary mr-2  "> Save</button>
+                        <button mat-button (click)="resetAllVal()" class="btn btn-primary mr-2  ">Reset</button>
+                        <button mat-button [disabled]="!selectedMailSets" (click)="DeleteMailSets()" class="btn btn-primary mr-2  ">Delete</button>
+                        <button mat-button (click)="close()" class="btn btn-primary mr-2  ">Cancel</button> -->
+                    </div>
+                </div>
+                
+                <div class="row my-3">
+                    <div class="col-12">
+                        <div class="form-row mb-0 align-items-center">
+                            <label class="col-sm-2 mb-0">
+                                Mail Set :
+                            </label>  
+
+                            <input [disabled]="DataHideStatus" [(ngModel)]="mailsetName" type="text" class="col-sm-10" placeholder="Enter Text : Name Mail Set" />
+                            <!-- <input [disabled]="DataHideStatus" [(ngModel)]="mailsetName" type="text" class="col-sm-10" placeholder="Enter text" /> -->
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p>Template </p>
+                    </div>
+                    <div class="col-8 pl-0">
+                        <p class="pl-1">Delivery Method</p>
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="col-md-4">
+                        <div class="list-container mt-0 set-option">
+                            
+                            <dx-list [selectedItemKeys]="selectedTemplate" [disabled]="DataHideStatus"
+                                (onSelectionChanged)="onSelectiontempltChanged($event)" #list1 [dataSource]="selectedtemplateList" [height]="200" [allowItemDeleting]="true"
+                                [pullRefreshEnabled]="false" selectionMode="single" [searchEnabled]="false" searchExpr="TemplateName"
+                                searchMode="contains">
+                                <div *dxTemplate="let data of 'item'">
+                                    <div>{{data.TemplateName}}</div>
+                                </div>
+                            </dx-list>
+                        </div>
+                        <div class="text-right">
+                            <button mat-button [disabled]="DataHideStatus" (click)="openAddPopupTempl()" class="btn ad-btn btn-primary my-3 mr-2  ">Add</button>
+                            <!-- <button (click)="deletetemplts()" [disabled]="DataHideStatus || selectedtmplSets?.length==0" class="btn btn-primary ad-btn my-3 mr-2  ">Del</button> -->
+                            <!-- <button [disabled]="DataHideStatus" (click)="openAddPopupTempl()" class="btn btn-primary my-3 mr-2  ">Add</button>
+                            <button [disabled]="!editClicked" class="btn btn-primary my-3 mr-2  ">Del</button> -->
+                        </div>
+                    </div>
+                    <div class="col-md-8 pl-1">
+                        <div class="input-list-wrap right-wrap border-tdo">
+                            
+                                <dx-list [disabled]="DataHideStatus" id="List" (onSelectionChanged)="onSelectionChangeList($event)"
+                                    class="list-scroll" #list [dataSource]="selectedtmplSets?.Mail_AddressTemplatesList" [allowItemDeleting]="true"
+                                    selectionMode="none" [searchEnabled]="false" searchExpr="TemplateName" searchMode="contains">
+                                    <div *dxTemplate="let data of 'item'" class="select-wrap">
+                                        <dx-select-box class="w-30 float-left mb-2" (onSelectionChanged)="ontoWhomChange($event,data)" [dataSource]="toWhomList"
+                                        displayExpr="Role" [searchMode]="'contains'" [value]="data.myToWhomList" [searchExpr]="'Role'" [searchEnabled]="false">
+                                        </dx-select-box>
+                                        <dx-select-box class="w-30 float-left mb-2" (onSelectionChanged)="onToChange($event,data)" [dataSource]="toList"
+                                            displayExpr="name" [searchMode]="'contains'" [value]="data.mytoList" [searchExpr]="'name'" [searchEnabled]="false">
+                                        </dx-select-box>
+                                        <dx-select-box class="w-30 float-left mb-2" [dataSource]="selectedMailType"
+                                        displayExpr="name" [searchMode]="'contains'" [value]="selectedMailType[0]" [searchExpr]="'name'" [searchEnabled]="false">
+                                        </dx-select-box>
+                                        <!-- <select (change)="onChange($event.target.value)" [(ngModel)]="data.RoleId" class="form-control w-35 float-left mb-2">
+                                            <option [value]="''">To Whom</option>
+                                            <option *ngFor="let twl of toWhomList" [value]="twl.RoleId">
+                                                {{twl.Role}}</option>
+                                        </select>
+                                        <select (change)="onChange($event.target.value)" [(ngModel)]="data.EMailToType" class="form-control w-20 float-left mb-2">
+                                            <option *ngFor="let tl of toList" [value]="tl.value">
+                                                {{tl.name}}</option>
+                                        </select>
+                                        
+                                        <select [(ngModel)]="data.MailType" class="form-control float-left  mb-2">
+                                            <option [value]="'Email'">Email</option>
+                                        </select> -->
+                                    </div>
+                
+                                </dx-list>                                
+                        </div>
+                        <div class="text-right">
+                            <button mat-button [disabled]="DataHideStatus" (click)="Add()" class="btn btn-primary ad-btn my-3 mr-2  ">Add</button>
+                          
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

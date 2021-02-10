@@ -1,0 +1,34 @@
+.dxreControl {
+    float: right !important;
+}
+@media(max-width:1385px){
+    .mob-enve .col-3, .mob-enve .col-9{
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .mob-enve .col-9{
+        margin-top: .5rem;
+    }
+}
+
+.custom-header{
+    padding: 4px 10px;
+    border-bottom: 1px solid #afdaf2;
+    background: #ecf8ff;
+}
+
+.cp{
+    cursor: pointer;
+    float: right;
+}
+
+.heading{
+    font-weight: 600;
+    font-size: 15px;
+    color: #5ec8ff;
+}
+
+.ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

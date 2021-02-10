@@ -1,0 +1,8 @@
+<div class="save-popup text-center">
+    <a (click)="dialogRef.close();" class="close-btn curpont">X</a>
+    <h4> Enter New Template Name:(limited to 40 chars)</h4>
+    <input (ngModelChange)="modelChanged($event)" maxlength="40" [(ngModel)]="templateName" type="text" placeholder=""
+        class="form-control w-50 mx-auto mb-4 popup-input">
+    <button mat-button [disabled]="invalidName" (click)="save()" class="btn btn-sidebar mr-3">Save</button>
+    <button mat-button (click)="onNoClick()" class="btn btn-sidebar">Cancel</button>
+</div>

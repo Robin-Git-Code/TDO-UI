@@ -1,0 +1,219 @@
+<!-- popup 9 starts -->
+
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane"  class="other-popup">
+    <div class="popup-header1">
+        <p class="mb-0 float-left text-capitalize text-white">Pick Notes</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+
+    <div class="popup-body">
+        
+        <div class="  ">
+            
+            <div class="row ">
+                <div class="col-sm-4">
+                    <div class="right-note-wrap p-2 pb-3">
+                        <div class="form-group row align-items-center mb-2">
+                            <label for="tooth" class="col-sm-12 col-form-label">Tooth/Patient:</label>
+                            <div class="col-sm-12">
+                                <div class="dx-field">
+                                    <div class="dx-field-value w-100">
+                                        <dx-select-box class="form-control ndx-select t-select patient-select"
+                                            (onSelectionChanged)="ontoothPChange($event)" [dataSource]="picNotesData.ToothPat" displayExpr="Text"
+                                            [searchMode]="'contains'" [value]="defaultToothPatient" [searchExpr]="'Text'" [searchEnabled]="false">
+                                        </dx-select-box>
+                                    </div>
+                                </div>
+                                <!-- <div class=" select-list">
+        
+                                    <select [(ngModel)]="sendData.ToothPatient" (change)="ontoothPChange($event.target.value)" class="form-control">
+                                    <option *ngFor="let item of picNotesData.ToothPat" [value]="item.ID">
+                                        {{item.Text}}</option>
+                                    </select>
+        
+                                </div> -->
+                            </div>
+        
+                        </div>
+                        <div class="form-group row align-items-center mb-2">
+                            <label for="tooth" class="col-sm-12 col-form-label">Private:</label>
+                            <div class="col-sm-12">
+                                <div class="dx-field">
+                                    <div class="dx-field-value w-100">
+                                        <dx-select-box class="form-control ndx-select t-select patient-select" (onSelectionChanged)="onPrivateChange($event)"
+                                            [dataSource]="picNotesData.Private" displayExpr="Text" [searchMode]="'contains'" [value]="defaultPrivate" [searchExpr]="'Text'"
+                                            [searchEnabled]="false">
+                                        </dx-select-box>
+                                    </div>
+                                </div>
+                                <!-- <div class=" select-list">        
+                                    <select [(ngModel)]="sendData.Private" (change)="onPrivateChange($event.target.value)" class="form-control">
+                                    <option *ngFor="let item of picNotesData.Private" [value]="item.ID">
+                                        {{item.Text}}</option>
+                                    </select>
+        
+                                </div> -->
+                            </div>
+        
+                        </div>
+                        <div class="form-group row align-items-center mb-2">
+                            <label for="tooth" class="col-sm-12 col-form-label">Administrative:</label>
+                            <div class="col-sm-12">
+                                <dx-select-box class="form-control ndx-select t-select patient-select" (onSelectionChanged)="onAdministrativeChange($event)"
+                                    [dataSource]="picNotesData.Administrative" displayExpr="Text" [searchMode]="'contains'" [value]="defaultAdministrative" [searchExpr]="'Text'"
+                                    [searchEnabled]="false">
+                                </dx-select-box>
+                                <!-- <div class=" select-list">       
+                                    <select [(ngModel)]="sendData.Administrative" (change)="onAdministrativeChange($event.target.value)" class="form-control">
+                                        <option *ngFor="let item of picNotesData.Administrative" [value]="item.ID">
+                                            {{item.Text}}</option>
+                                    </select>
+        
+                                </div> -->
+                            </div>
+        
+                        </div>
+                        <div class="form-group row align-items-center mb-2">
+                            <label for="tooth" class="col-sm-12 col-form-label">Hidden:</label>
+                            <div class="col-sm-12">
+                                <dx-select-box class="form-control ndx-select t-select patient-select" (onSelectionChanged)="onHiddenChange($event)"
+                                    [dataSource]="picNotesData.Hidden" displayExpr="Text" [searchMode]="'contains'" [value]="defaultHidden" [searchExpr]="'Text'"
+                                    [searchEnabled]="false">
+                                </dx-select-box>
+                                <!-- <div class=" select-list">        
+                                    <select [(ngModel)]="sendData.Hidden" (change)="onHiddenChange($event.target.value)" class="form-control">
+                                        <option *ngFor="let item of picNotesData.Hidden" [value]="item.ID">
+                                            {{item.Text}}</option>
+                                    </select>
+        
+                                </div> -->
+                            </div>
+        
+                        </div>
+                        <div class="form-group row align-items-center mb-2">
+                            <label for="tooth" class="col-sm-12 col-form-label">Teeth:</label>
+                            <div class="col-sm-12">
+                                <dx-select-box class="form-control ndx-select t-select patient-select" (onSelectionChanged)="onTeethChange($event)"
+                                    [dataSource]="picNotesData.Teeth" displayExpr="Text" [searchMode]="'contains'" [value]="defaultTeeth" [searchExpr]="'Text'"
+                                    [searchEnabled]="false">
+                                </dx-select-box>
+                                <!-- <div class=" select-list">        
+                                    <select [(ngModel)]="sendData.Teeth" (change)="onTeethChange($event.target.value)" class="form-control">
+                                        <option *ngFor="let item of picNotesData.Teeth" [value]="item.ID">
+                                            {{item.Text}}</option>
+                                    </select>
+        
+                                </div> -->
+                            </div>
+        
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="col-sm-8 pl-0">
+                    <div class="right-note-wrap pt-2 height-fixed">
+                        <div class="overHei" [hidden]="!NoteListData">
+                        <div *ngFor="let item of NoteListData" class="row mx-0 align-items-end">
+                            <div class="col-md-10 pr-0">
+                                <div class="mt-2" [ngClass]="{ 'mt-3': NoteListData.length > 1}" >
+                                    <span *ngIf="item.Tooth">Tooth #{{item.Tooth}}</span>
+                                </div>
+                                <div class="notes-setting-wrap">
+                                    <div class="rt-content-wrap">
+                                        <p style="white-space: pre-line;" class="mb-0">                        
+                                            {{item.Note}}
+                                        </p>
+                                    </div>
+                                    <div class="row note-footer mx-0">
+                                        <div class="col-md-6 border-rt py-1">
+                                            <p class="mb-0">{{item.NotesCategory}}</p>
+                                        </div>
+                                        <div class="col-md-6 py-1">
+                                            <p class="text-right mb-0"> {{item.Date}} </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <button mat-button (click)="userclick(item)" class="btn-primary">></button>
+                            </div>
+                        </div>
+                        <div *ngIf="noData">
+                            <p>No note present</p>
+                        </div>
+                            <!-- <mat-selection-list (ngModelChange)="userclick($event)" #tokens [(ngModel)]="selectedmultipleNote"
+                                >
+                                <mat-list-option [value]="item" *ngFor="let item of NoteListData">
+                                <div class="row mx-0 align-items-end">
+                                    <div class="col-md-10 pr-0">
+                                        <div class="rt-content-wrap">
+                                            <p style="white-space: pre-line;" class="mb-0">
+                                               
+                                                {{item.Note}}
+                                            </p>
+                                        </div>
+                                        <div class="row note-footer mx-0">
+                                            <div class="col-md-6 border-rt py-1">
+                                                <p class="mb-0">{{item.NotesCategory}}</p>
+                                            </div>
+                                            <div class="col-md-6 py-1">
+                                                <p class="text-right mb-0"> {{item.Date}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                </mat-list-option>
+                            </mat-selection-list> -->
+                            
+                        </div>
+                        <!-- <div *ngFor="let item of NoteListData" class="note-inner-wrap">
+                            <div class="row mx-0 align-items-end">
+                                <div class="col-md-10 pr-0">
+                                    <div class="notes-setting-wrap">
+                                        <div class="rt-content-wrap">
+                                            <p class="mb-0">
+                                              {{item.Note}}
+                                            </p>
+                                        </div>
+                                        <div class="row note-footer mx-0">
+                                            <div class="col-md-6 py-1">
+                                                <p class="mb-0 border-rt-grey">{{item.NotesCategory}} </p>
+                                            </div>
+                                            <div class="col-md-6 py-1">
+                                                <p class="text-right mb-0">  {{item.Date}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-2">
+                                    <button (click)="submitData(item)"  class="btn-primary add-arrow-btn">></button>
+                                </div>
+                            </div>
+                            
+                            
+                        </div> -->
+                        
+                        
+                    </div>
+                    <div class="mt-3">
+                        <dx-check-box [(ngModel)]="insertDate" [value]="insertDate" text="Add Note Date" class="mb-2 font-12 w-100">
+                        </dx-check-box>
+                    </div>
+                    <div class="text-right mt-3 mb-2">
+                        <!-- <button (click)="insertNotes()" class="btn-primary mgr15">Insert Notes</button> -->
+                        <button mat-button (click)="close()" class="btn-primary">Close</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+</div>
+

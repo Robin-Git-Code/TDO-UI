@@ -1,0 +1,355 @@
+<div class="other-popup manage-para ">
+    <div class="popup-header1">
+        <p class="mb-0 text-capitalize float-left text-white">Letter List</p>
+        <a (click)="close()" class="close-btn curpont float-right">X</a>
+    </div>
+    <div class="tab-content letter-list-wrap">
+        <div class="">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="my-2 setting-form">
+                            <div class="row">
+                                <div class="col-2 px-0">
+                                    <div class="border-tdo letter-list-left-wrap">
+                                        <div class="form-group row align-items-center mb-0">
+                                            <div class="col-12 p-0">
+                                                <label for=""
+                                                    class="w-100 font-12 px-3 border-btm1 col-form-label font-weight-bold">Filter
+                                                    criteria</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group row align-items-center mb-0 ">
+                                            <div class="col-12 p-0">
+                                                <label for=""
+                                                    class="w-100 font-12 px-3 border-btm1 col-form-label">Filter by
+                                                    letter:</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group row align-items-center mb-0">
+                                            <label for="" class="col-sm-12 font-12 col-form-label">Sent to:</label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row align-items-center mb-2">
+                                                    <div class="col-sm-12 px-0 mb-2">
+                                                        <dx-check-box class=" font-12 w-100"
+                                                            (onValueChanged)="handleValueChangePatientLetter($event)"
+                                                            [value]="patientLetterStatus" text="Patient">
+                                                        </dx-check-box>
+                                                    </div>
+                                                    <div class="col-sm-12 pr-0">
+                                                        <div class="form-group row mx-0 align-items-center mb-0">
+
+                                                            <div class="col-sm-12 pr-0">
+                                                                <div class="dx-field">
+                                                                    <div class="dx-field-value font-12">
+                                                                        <dx-select-box [disabled]="!patientLetterStatus"
+                                                                            class="form-control t-select"
+                                                                            (onSelectionChanged)="onSelectionPatientLetter($event)"
+                                                                            [dataSource]="patientLetterListData"
+                                                                            displayExpr="FullName"
+                                                                            [searchMode]="'contains'"
+                                                                            [value]="selectedPatientLetter"
+                                                                            [searchExpr]="'FullName'"
+                                                                            [searchEnabled]="true"></dx-select-box>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row align-items-center mb-2">
+                                                    <div class="col-sm-12 px-0 mb-2">
+                                                        <dx-check-box class=" font-12 w-100"
+                                                            (onValueChanged)="handleValueChangeDoctor($event)"
+                                                            [value]="doctorStatus" text="Referring doctor">
+                                                        </dx-check-box>
+                                                    </div>
+                                                    <div class="col-sm-12 pr-0">
+                                                        <div class="form-group row mx-0 align-items-center mb-0">
+
+                                                            <div class="col-sm-12 pr-0">
+                                                                <div class="dx-field">
+                                                                    <div class="dx-field-value font-12">
+                                                                        <dx-select-box [disabled]="!doctorStatus"
+                                                                            class="form-control t-select"
+                                                                            (onSelectionChanged)="onSelectionDoctor($event)"
+                                                                            [dataSource]="referringDoctorListData"
+                                                                            displayExpr="Name" [searchMode]="'contains'"
+                                                                            [value]="selectedDoctor"
+                                                                            [searchExpr]="'Name'"
+                                                                            [searchEnabled]="true"></dx-select-box>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row align-items-center mb-2">
+                                                    <div class="col-sm-12 px-0 mb-1">
+                                                        <dx-check-box class=" font-12 w-100"
+                                                            (onValueChanged)="handleValueChangeDate($event)"
+                                                            [value]="dateStatus" text=" Created within">
+                                                        </dx-check-box>
+                                                    </div>
+                                                    <div class="col-sm-12 pr-0">
+                                                        <div class="dx-fieldset letter-list-fieldset">
+                                                            <div class="dx-field">
+                                                                <div class="dx-field-label font-12">From:</div>
+                                                                <div class="dx-field-value">
+                                                                    <dx-date-box class=" font-12"
+                                                                        (onValueChanged)="onSelectionDate($event)"
+                                                                        [disabled]="!dateStatus" [(value)]="startDate"
+                                                                        [(min)]="value" [(max)]="now" type="date"
+                                                                        valueChangeEvent="keyup"
+                                                                        [(isValid)]="startValid">
+                                                                    </dx-date-box>
+                                                                </div>
+                                                            </div>
+                                                            <div class="dx-field">
+                                                                <div class="dx-field-label font-12">To:</div>
+                                                                <div class="dx-field-value">
+                                                                    <dx-date-box class=" font-12"
+                                                                        (onValueChanged)="onSelectionDate($event)"
+                                                                        [disabled]="!dateStatus" [(value)]="endDate"
+                                                                        [(min)]="startDate" [(isValid)]="endValid"
+                                                                        type="date" valueChangeEvent="keyup">
+                                                                    </dx-date-box>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group row align-items-center mb-0">
+                                            <div class="col-12 p-0">
+                                                <label for="Template"
+                                                    class="w-100 font-12 px-3 border-tp-btm1 col-form-label">Filter by
+                                                    patient record:</label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12">
+                                                <div class="row align-items-center mb-2">
+                                                    <div class="col-sm-12 px-0 mb-2">
+                                                        <dx-check-box class="w-100 font-12"
+                                                            (onValueChanged)="handleValueChangePatientPatient($event)"
+                                                            [value]="patientPatientStatus" text="Patient">
+                                                        </dx-check-box>
+                                                    </div>
+                                                    <div class="col-sm-12 pr-0">
+                                                        <div class="form-group row mx-0 align-items-center mb-0">
+
+                                                            <div class="col-sm-12 pr-0">
+                                                                <div class="dx-field">
+                                                                    <div class="dx-field-value font-12">
+                                                                        <dx-select-box
+                                                                            [disabled]="!patientPatientStatus"
+                                                                            class="form-control t-select"
+                                                                            (onSelectionChanged)="onSelectionPatientPatient($event)"
+                                                                            [dataSource]="patientLetterListData"
+                                                                            displayExpr="FullName"
+                                                                            [searchMode]="'contains'"
+                                                                            [value]="selectedPatientPatient"
+                                                                            [searchExpr]="'FullName'"
+                                                                            [searchEnabled]="true"></dx-select-box>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row align-items-center mb-2">
+                                                    <div class="col-sm-12 px-0 mb-2">
+                                                        <dx-check-box class="w-100 font-12"
+                                                            (onValueChanged)="handleValueChangeTooth($event)"
+                                                            [value]="patientToothStatus" text="Filter by tooth">
+                                                        </dx-check-box>
+                                                    </div>
+                                                    <div class="col-sm-12 pr-0">
+                                                        <div class="form-group row mx-0 align-items-center mb-0">
+
+                                                            <div class="col-sm-12 pr-0">
+                                                                <div class="dx-field">
+                                                                    <div class="dx-field-value font-12">
+                                                                        <dx-select-box [disabled]="!patientToothStatus"
+                                                                            class="form-control t-select"
+                                                                            (onSelectionChanged)="onSelectionTooth($event)"
+                                                                            [dataSource]="toothListData"
+                                                                            displayExpr="Tooth"
+                                                                            [searchMode]="'contains'"
+                                                                            [value]="selectedTooth"
+                                                                            [searchExpr]="'Tooth'"
+                                                                            [searchEnabled]="true"></dx-select-box>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="text-right mb-2">
+                                                    <button (click)="getLetterList()" mat-button type="button"
+                                                        class="btn btn-primary font-12 line-height-20">Apply</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-10 pl-0">
+                                    <!-- <mat-form-field class="filter-input w-25">
+                                        <mat-label class=" font-12">Filter</mat-label>
+                                        <input class=" font-12" matInput (keyup)="applyFilter($event)" placeholder="Name" #input>
+                                    </mat-form-field>
+                                    <div class="mat-elevation-z8 letter-table">
+                                        <div class="letter-table-inner">
+                                            <table mat-table [dataSource]="dataSource" matSort class="">
+                                                <ng-container matColumnDef="FirstName" >
+                                                    <th class="width-1" mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+                                                    <td mat-cell *matCellDef="let row"> {{row.FirstName}} </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="LastName">
+                                                    <th class="width-1" mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+                                                    <td mat-cell *matCellDef="let row"> {{row.LastName}} </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="Address">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+                                                    <td mat-cell *matCellDef="let row"> {{row.Address}} </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="Description">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                                                    <td mat-cell *matCellDef="let row" > {{row.Description}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="DeliveryMethod">
+                                                    <th class="width-1" mat-header-cell *matHeaderCellDef mat-sort-header> Delivery Method </th>
+                                                    <td mat-cell *matCellDef="let row" > {{row.DeliveryMethod}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="Email">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                                                    <td mat-cell *matCellDef="let row" > {{row.Email}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="DateGenerated">
+                                                    <th class="width-1" mat-header-cell *matHeaderCellDef mat-sort-header> Date Generated </th>
+                                                    <td mat-cell *matCellDef="let row" > {{row.DateGenerated}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="DateSent">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Send </th>
+                                                    <td mat-cell *matCellDef="let row" > {{row.DateSent}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="Patient">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient </th>
+                                                    <td mat-cell *matCellDef="let row"> {{row.Patient}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="Tooth">
+                                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tooth </th>
+                                                    <td mat-cell *matCellDef="let row"> {{row.Tooth}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="actions">
+                                                    <th class="width-2" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                        Actions </th>
+                                                    <td style="cursor: pointer;" mat-cell *matCellDef="let element">
+                                                        <i class="material-icons modificationIcons" (click)="viewFnc(element)" >visibility</i>
+                                                        <i class="material-icons modificationIcons" (click)="deleteLetterList(element)">delete</i>
+                                                    </td>
+                                                </ng-container>
+                                        
+                                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                        
+                                                <tr class="mat-row" *matNoDataRow>
+                                                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        
+                                    </div> -->
+
+                                    <!-- dev-express-grid -->
+                                    <div class="mat-elevation-z8 letter-table">
+                                        <dx-data-grid [dataSource]="dataSource"
+                                            showBorders="true" [height]="570" (onRowRemoving)="deleteItem($event)">
+                                            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search...">
+                                            </dxo-search-panel>
+                                            <dxo-scrolling mode="virtual"></dxo-scrolling>
+                                            <dxo-editing mode="row" [allowAdding]="false" [allowUpdating]="true"
+                                                [allowDeleting]="true" [useIcons]="true">
+                                            </dxo-editing>
+                                            <dxo-selection mode="single"></dxo-selection>
+                                            <dxi-column dataField="FirstName" caption="First Name" [width]="150">
+                                            </dxi-column>
+                                            <dxi-column dataField="LastName" caption="Last Name" [width]="150">
+                                            </dxi-column>
+                                            <dxi-column dataField="Address" caption="Address" [width]="200">
+                                            </dxi-column>
+                                            <dxi-column dataField="Description" caption="Description" [width]="200">
+                                            </dxi-column>
+                                            <dxi-column dataField="DeliveryMethod" caption="Delivery Method"
+                                                [width]="150">
+                                            </dxi-column>
+                                            <dxi-column dataField="Email" caption="Email" [width]="200">
+                                            </dxi-column>
+                                            <dxi-column dataField="DateGenerated" caption="Date Generated"
+                                                [width]="200">
+                                            </dxi-column>
+                                            <dxi-column dataField="DateSent" caption="Date Send" [width]="200">
+                                            </dxi-column>
+                                            <dxi-column dataField="Patient" caption="Patient" [width]="150">
+                                            </dxi-column>
+                                            <dxi-column dataField="Tooth" caption="Tooth" [width]="80">
+                                            </dxi-column>
+                                            <dxi-column type="buttons" [width]="100">
+                                                <dxi-button hint="View" icon="assets\images\pictures\eye-icon.png" [onClick]="cloneIconClick">
+                                                </dxi-button>
+                                                <dxi-button name="delete" icon="assets\images\pictures\delete-icon.png"></dxi-button>
+                                            </dxi-column>
+                                        </dx-data-grid>
+                                    </div>
+                                    <!-- dev-express-grid -->
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
